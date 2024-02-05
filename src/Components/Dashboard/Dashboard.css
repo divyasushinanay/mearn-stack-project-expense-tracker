@@ -1,4 +1,4 @@
-.dashboard{
+.dashboard {
     padding: 2rem;
     width: 65%;
     height: 650px;
@@ -12,16 +12,69 @@
     margin: 10px;
     margin-top: 40px;
     margin-left: 40px;
-}
-
-.dashboard h1{
+  }
+  
+  .dashboard h1 {
     color: rgba(34, 34, 96, 1);
-}
-.graph img {
+  }
+  
+  .content {
+    display: flex;
+  }
+  
+  .graph img {
     width: 550px;
     height: 300px;
     border-radius: 5%;
     position: absolute;
     top: 15%;
-    display: flex;
+  }
+  
+  .totalbalance,.totalincome,.totalexpense {
+    background-color: #ffffff;
+    padding: 2rem;
+    border-radius: 16px;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+    text-align: center;
 }
+.totalbalance{
+    position: absolute;
+    top:150px;
+    left: 640px;
+}
+.totalexpense{
+    position: absolute;
+    top: 430px;
+    left: 100px;
+}
+.totalincome{
+    position: absolute;
+    top: 430px;
+    left: 500px;
+}
+  .totalbalance h2:nth-child(1) {
+    color: rgba(34, 34, 96, 1);
+    font-size: 40px;
+  }
+  .totalexpense h2:nth-child(1){
+    color: rgba(34, 34, 96, 1);
+    font-size: 40px;
+  }
+  .totalincome h2:nth-child(1) {
+    color: rgba(34, 34, 96, 1);
+    font-size: 40px;
+  }
+  
+  .totalbalance h2:nth-child(2) {
+    color: #4CAF50;
+    font-size: 50px;
+  }
+  
+  .totalexpense h2:nth-child(2) {
+    color: rgba(34, 34, 96, 0.6)    ;
+    font-size: 50px;
+  }
+  .totalincome h2:nth-child(2) {
+    color: rgba(34, 34, 96, 0.6)    ;
+    font-size: 50px;
+  }

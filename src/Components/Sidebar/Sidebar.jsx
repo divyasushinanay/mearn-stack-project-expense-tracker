@@ -4,6 +4,7 @@ import avatar from '../../Imgs/avatar.png'
 import { FaChartLine } from "react-icons/fa6";
 import { FaMoneyBillTrendUp } from "react-icons/fa6";
 import { FaMoneyBillTransfer } from "react-icons/fa6";
+import { Link } from 'react-router-dom';
 
 
 const Sidebar = () => {
@@ -17,11 +18,9 @@ const Sidebar = () => {
         </div>
       </div>
       <ul class="menu-items">
-        <li><FaChartLine className='icon' />Dashboard</li>
-        <li><FaMoneyBillTrendUp className='icon' />
-          Income</li>
-        <li><FaMoneyBillTransfer className='icon' />
-          Expenses</li>
+        <li><FaChartLine className='icon' /><Link to="/" className='link'>Dashboard</Link></li>
+        <li><FaMoneyBillTrendUp className='icon' /><Link to="/income" className='link'>Income</Link></li>
+        <li><FaMoneyBillTransfer className='icon' /><Link to="/expense" className='link'>Expense</Link></li>
       </ul>
     </div>
   )

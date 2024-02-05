@@ -58,3 +58,7 @@
     font-size: xx-large;
     margin-right: 20px;
 }
+.link{
+    color: rgba(34, 34, 96, 0.6);
+    text-decoration: none;
+}
