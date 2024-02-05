@@ -1,0 +1,7 @@
+body{
+  background-image: url('./Imgs/bg.png');
+}
+
+.App{
+  display: flex;
+}
