@@ -22,7 +22,7 @@
     display: flex;
   }
   
-  .graph img {
+  .graph ,.graphs {
     width: 550px;
     height: 300px;
     border-radius: 5%;
