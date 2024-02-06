@@ -1,13 +1,13 @@
 import React, { useEffect, useState } from 'react';
 import './Expense.css';
-import {FaArrowDownLong} from "react-icons/fa6"
+import { FaArrowDownLong } from "react-icons/fa6";
 import { FaDollarSign } from "react-icons/fa";
 import { RiDeleteBin6Line } from "react-icons/ri";
 import { IoIosCalendar } from "react-icons/io";
 import { BiSolidMessageRounded } from "react-icons/bi";
 import Instance from '../../Axios';
 
-const Expense = () => {
+const Expense = ({ updateTotalExpense }) => {
     const [post, setPost] = useState({
         title: "",
         amount: "",
@@ -17,6 +17,7 @@ const Expense = () => {
     });
 
     const [data, setData] = useState([]);
+    const [totalExpense, setTotalExpense] = useState(0);
 
     useEffect(() => {
         fetchData();
@@ -24,8 +25,16 @@ const Expense = () => {
 
     const fetchData = () => {
         Instance.get('/api/v1/expense')
-            .then(res => setData(res.data))
+            .then(res => {
+                setData(res.data);
+                calculateTotalExpense(res.data);
+            })
             .catch(err => console.log(err));
+    }
+
+    const calculateTotalExpense = (expenses) => {
+        const total = expenses.reduce((acc, expense) => acc + expense.amount, 0);
+        setTotalExpense(total);
     }
 
     const handleInput = (e) => {
@@ -36,31 +45,35 @@ const Expense = () => {
     const handleSubmit = (e) => {
         e.preventDefault();
         Instance.post('/api/v1/expense', post)
-            .then(response => {
-                console.log(response);
-                fetchData();
-                setPost({
-                    title: "",
-                    amount: "",
-                    date: "",
-                    category: "",
-                    description: ""
-                });
-    
-            })
-            .catch(err => console.log(err));
-    }
-
-    const deleterecord = (id) => {
+          .then(response => {
+            console.log(response);
+            fetchData();
+            setPost({
+              title: "",
+              amount: "",
+              date: "",
+              category: "",
+              description: ""
+            });
+            const newTotalExpense = totalExpense + parseFloat(post.amount);
+            updateTotalExpense(newTotalExpense);
+          })
+          .catch(err => console.log(err));
+      }
+      
+      const deleterecord = (id) => {
         Instance.delete(`/api/v1/expense/${id}`)
-            .then(response => {
-                console.log(response);
-                fetchData();
-            })
-            .catch(err => console.log(err));
-    }
-    const totalExpense = data.reduce((total, expense) => total + expense.amount, 0);
-
+          .then(response => {
+            console.log(response);
+            fetchData();
+            // Update total expense after deleting an expense
+            const newTotalExpense = totalExpense - parseFloat(data.find(expense => expense._id === id).amount);
+            updateTotalExpense(newTotalExpense);
+          })
+          .catch(err => console.log(err));
+      }
+      
+    
     return (
         <div className='expense'>
             <h1>Expenses</h1>
@@ -99,7 +112,7 @@ const Expense = () => {
                         <h2><IoIosCalendar /> {new Date(expense.date).toLocaleDateString()}</h2>
                         <h2><BiSolidMessageRounded /> {expense.description}</h2>
                         <div className="icondelete">
-                        <RiDeleteBin6Line style={{ cursor: 'pointer' }} onClick={() => deleterecord(expense._id)} />
+                            <RiDeleteBin6Line style={{ cursor: 'pointer' }} onClick={() => deleterecord(expense._id)} />
                         </div>
                     </div>
                 ))}
