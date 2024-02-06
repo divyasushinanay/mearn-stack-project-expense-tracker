@@ -9,7 +9,7 @@ import { BiSolidMessageRounded } from "react-icons/bi";
 import Instance from '../../Axios';
 import { IoIosCalendar } from 'react-icons/io';
 
-const Income = () => {
+const Income = ({updatetotalincome}) => {
 
     const [post,setPost]=useState({
         title:"",
@@ -47,6 +47,8 @@ const Income = () => {
                     category:"",
                     description:"",
                 });
+                const newTotalincome = totalIncome + parseFloat(post.amount);
+                updatetotalincome(newTotalincome);
             })
            .catch(err=>console.log(err));
         }
@@ -56,15 +58,17 @@ const Income = () => {
                 .then(response => {
                     console.log(response);
                     fetchData();
+                    const newTotalincome = totalIncome - parseFloat(data.find(income => income._id === id).amount);
+                    updatetotalincome(newTotalincome);
                 })
                 .catch(err => console.log(err));
         }
         const totalIncome = data.reduce((total, income) => total + income.amount, 0);
   return (
-    <div className='expense'>
+    <div className='income'>
             <h1>Income</h1>
-            <div class="expense_total">
-            <h2> Toatal Income: <span>{totalIncome}</span></h2>
+            <div class="income_total">
+            <h2> Total Income: <span>${totalIncome}</span></h2>
             </div>
             <div className='inputvalue'>
             <form onSubmit={handleSubmit}>
@@ -90,14 +94,14 @@ const Income = () => {
             <div className='scrollable'>
                 {data.map((income, index) => (
                     <div className="valueincome" key={index}>
-                        <div className="icon">
+                        <div className="upicon">
                           <FaArrowUpLong/>
                         </div>
                         <h2>{income.title}</h2><br />
                         <h2><FaDollarSign />{income.amount}</h2>
                         <h2><IoIosCalendar /> {new Date(income.date).toLocaleDateString()}</h2>
                         <h2><BiSolidMessageRounded /> {income.description}</h2>
-                        <div className="icondelete">
+                        <div className="deleteicon">
                         <RiDeleteBin6Line style={{ cursor: 'pointer' }} onClick={() => deleterecord(income._id)} />
                         </div>
                        

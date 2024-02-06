@@ -2,9 +2,9 @@ import React from 'react';
 import './Dashboard.css';
 import img1 from '../../Imgs/images.png';
 
-const Dashboard = ({ totalExpense, totalIncome }) => {
+const Dashboard = ({ totalExpense, totalincome }) => {
   // Calculate total balance
-  const totalBalance = totalIncome - totalExpense;
+  const totalBalance = totalincome - totalExpense;
 
   return (
     <div className='dashboard'>
@@ -19,7 +19,7 @@ const Dashboard = ({ totalExpense, totalIncome }) => {
         </div>
         <div className="totalincome">
           <h2>Total Income</h2>
-          <h2>${totalIncome}</h2>
+          <h2>${totalincome}</h2>
         </div>
         <div className="totalexpense">
           <h2>Total Expense</h2>

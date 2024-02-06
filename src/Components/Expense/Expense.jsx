@@ -103,7 +103,7 @@ const Expense = ({ updateTotalExpense }) => {
 
             <div className='scrollable'>
                 {data.map((expense, index) => (
-                    <div className="valueincome" key={index}>
+                    <div className="valueexpense" key={index}>
                         <div className="icon">
                             <FaArrowDownLong />
                         </div>

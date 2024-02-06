@@ -94,7 +94,7 @@
     transition: background-color 0.4s ease; 
 }
 
-.expense .valueincome {
+.expense .valueexpense {
     background-color: #ffffff;
     padding: 1.5rem;
     border-radius: 16px;
@@ -107,11 +107,11 @@
     height:120px;
 }
 
-.valueincome .icon {
+.valueexpense .icon {
     color: red;
 }
 
-.valueincome .icondelete{
+.valueexpense .icondelete{
     font-size: 2rem;
     color: rgba(34, 34, 96, 0.6);
     position: relative;
@@ -119,7 +119,7 @@
     left: 520px;
 }
 
-.valueincome h2 {
+.valueexpense h2 {
     font-size: 1.5rem;
     color: rgba(34, 34, 96, 1);
     margin: 0;
@@ -127,22 +127,22 @@
     position: relative;
 }
 
-.valueincome h2:nth-child(2) {
+.valueexpense h2:nth-child(2) {
     font-size: 2rem;
     left: 80px;
     bottom: 60px;
 }
 
-.valueincome h2:nth-child(4) {
+.valueexpense h2:nth-child(4) {
     left: 40px;
     bottom: 60px;
 }
 
-.valueincome h2:nth-child(5) {
+.valueexpense h2:nth-child(5) {
     left: 150px;
     bottom: 89px;
 }
-.valueincome h2:nth-child(6) {
+.valueexpense h2:nth-child(6) {
     left: 340px;
     bottom: 118px;
 }

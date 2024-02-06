@@ -9,6 +9,7 @@ import Instance from './Axios';
 
 function App() {
   const [totalExpense, setTotalExpense] = useState(0);
+  const [totalincome,settotalincome] = useState(0)
 
   useEffect(() => {
     fetchData();
@@ -21,10 +22,21 @@ function App() {
         setTotalExpense(total);
       })
       .catch(err => console.log(err));
+
+      Instance.get('/api/v1/income')
+      .then(res => {
+        const totalincome = res.data.reduce((acc, income) => acc + income.amount, 0);
+        settotalincome(totalincome);
+      })
+      .catch(err => console.log(err));
+
   }
 
   const updateTotalExpense = (newTotalExpense) => {
     setTotalExpense(newTotalExpense);
+  }
+  const updatetotalincome = (newtotalincome)=>{
+    settotalincome(newtotalincome)
   }
 
   return (
@@ -32,8 +44,8 @@ function App() {
       <Router>
         <Sidebar />
         <Routes>
-          <Route path='/' exact element={<Dashboard totalExpense={totalExpense} />} />
-          <Route path='/income' element={<Income />} />
+          <Route path='/' exact element={<Dashboard totalExpense={totalExpense} totalincome = {totalincome} />} />
+          <Route path='/income' element={<Income updatetotalincome={updatetotalincome} />} />
           <Route path='/expense' element={<Expense updateTotalExpense={updateTotalExpense} />} />
         </Routes>
       </Router>
