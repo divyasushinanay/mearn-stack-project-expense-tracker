@@ -4,7 +4,7 @@ import Dashboard from './Components/Dashboard/Dashboard';
 import Expense from './Components/Expense/Expense';
 import Income from './Components/Income/Income';
 import Sidebar from './Components/Sidebar/Sidebar';
-import { BrowserRouter as Router, Route, Routes } from 'react-router-dom'; // Import Routes
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import Instance from './Axios';
 
 function App() {

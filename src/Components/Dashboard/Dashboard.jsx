@@ -1,46 +1,55 @@
 import React, { useState, useEffect } from 'react';
 import './Dashboard.css';
 import { AgChartsReact } from 'ag-charts-react';
+import Instance from '../../Axios';
 
-const Dashboard = ({ totalExpense, totalincome }) => {
-  // State to hold chart options
-  const [chartOptions, setChartOptions] = useState({
-    data: [
-      { category: 'Income', value: totalincome },
-      { category: 'Expense', value: totalExpense },
-    ],
+const Dashboard = ({totalExpense,totalincome}) => {
+  const [incomeHistory, setIncomeHistory] = useState([]);
+  const [expenseHistory, setExpenseHistory] = useState([]);
+
+  useEffect(() => {
+    fetchData();
+  }, []);
+
+  const fetchData = () => {
+    Instance.get('/api/v1/income')
+      .then(res => {
+        setIncomeHistory(res.data);
+      })
+      .catch(err => console.log(err));
+
+    Instance.get('/api/v1/expense')
+      .then(res => {
+        setExpenseHistory(res.data);
+      })
+      .catch(err => console.log(err));
+  }
+
+  const prepareChartData = () => {
+    const chartData = [];
+
+    for (let i = 0; i < Math.max(incomeHistory.length, expenseHistory.length); i++) {
+      const quarter = `Q${i + 1}`;
+      const income = incomeHistory[i] ? incomeHistory[i].amount : 0;
+      const expense = expenseHistory[i] ? expenseHistory[i].amount : 0;
+
+      chartData.push({ quarter, income, expense });
+    }
+
+    return chartData;
+  };
+
+  const chartOptions = {
     series: [
-      {
-        type: 'bar',
-        xKey: 'category',
-        yKeys: ['value'],
-        fills: ['#3366cc', '#dc3912'],
-        strokes: ['#3366cc', '#dc3912'],
-      },
+      { type: 'line', xKey: 'quarter', yKey: 'income', yName: 'Income', stroke: '#00ff00' },
+      { type: 'line', xKey: 'quarter', yKey: 'expense', yName: 'Expense', stroke: '#ff0000' },
     ],
-    // xAxis: {
-    //   type: 'category',
-    //   title: 'Category',
-    // },
-    // yAxis: {
-    //   min: 0,
-    //   title: 'Amount',
-    // },
-  });
+    xAxis: { type: 'category', title: 'Quarter' },
+    yAxis: { type: 'number', title: 'Amount' },
+    data: prepareChartData(),
+  };
 
-  // Update chartOptions when totalIncome or totalExpense changes
-  // useEffect(() => {
-  //   setChartOptions((prevOptions) => ({
-  //     ...prevOptions,
-  //     data: [
-  //       { category: 'Income', value: totalincome },
-  //       { category: 'Expense', value: totalExpense },
-  //     ],
-  //   }));
-  // }, [totalincome, totalExpense]);
-
-  // Calculate total balance
-  const totalBalance = totalincome - totalExpense;
+  const totalBalance = totalincome - totalExpense
 
   return (
     <div className='dashboard'>

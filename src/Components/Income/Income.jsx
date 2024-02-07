@@ -1,10 +1,8 @@
 import React,{useEffect,useState} from 'react';
 import './Income.css';
-import { FaArrowDownLong } from "react-icons/fa6";
 import { FaArrowUpLong } from 'react-icons/fa6';
 import { RiDeleteBin6Line } from "react-icons/ri";
 import { FaDollarSign } from "react-icons/fa";
-import { SlCalender } from "react-icons/sl";
 import { BiSolidMessageRounded } from "react-icons/bi";
 import Instance from '../../Axios';
 import { IoIosCalendar } from 'react-icons/io';

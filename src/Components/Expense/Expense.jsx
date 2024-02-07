@@ -66,7 +66,6 @@ const Expense = ({ updateTotalExpense }) => {
           .then(response => {
             console.log(response);
             fetchData();
-            // Update total expense after deleting an expense
             const newTotalExpense = totalExpense - parseFloat(data.find(expense => expense._id === id).amount);
             updateTotalExpense(newTotalExpense);
           })
